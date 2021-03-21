@@ -15,7 +15,8 @@
 
 ### Association
 
-- has_many :product
+- has_many :products
+- has_many :buyers
 
 
 
@@ -23,17 +24,17 @@
 
 ## products テーブル
 
-| Colum            | Type    | Options                        |
-| ---------------- | ------- | -----------                    |
-| name             | string  | null: false                    |
-| description      | text    | null: false                    |
-| category_id      | integer | null: false                    |
-| status_id        | integer | null: false                    |
-| shipping_cost_id | integer | null: false                    |
-| prefecture_id    | integer | null: false                    |
-| shipping_days_id | integer | null: false                    |
-| price            | integer | null: false                    |
-| user_id          | integer | null: false, foreign_key: true | 
+| Colum            | Type       | Options                        |
+| ---------------- | ---------- | -----------                    |
+| name             | string     | null: false                    |
+| description      | text       | null: false                    |
+| category_id      | integer    | null: false                    |
+| status_id        | integer    | null: false                    |
+| shipping_cost_id | integer    | null: false                    |
+| prefecture_id    | integer    | null: false                    |
+| shipping_days_id | integer    | null: false                    |
+| price            | integer    | null: false                    |
+| user             | references | null: false, foreign_key: true | 
 
 ### Association
 
@@ -57,13 +58,13 @@
 
 ## buyers テーブル
 
-| Colum         | Type    | Options                        |
-| ------------- | ------- | ------------------------------ |
-| user_id       | integer | null: false, foreign_key: true |
-| product_id    | integer | null: false, foreign_key: true |
+| Colum         | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| user          | references | null: false, foreign_key: true |
+| product       | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_many :product
-- has_many : destination
+- belongs_to :product
+- has_one : destination
