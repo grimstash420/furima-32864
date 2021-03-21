@@ -15,25 +15,25 @@
 
 ### Association
 
-- has_many :products
-- belongs_to :card
+- has_many :product
+
 
 
 
 
 ## products テーブル
 
-| Colum            | Type    | Options     |
-| ---------------- | ------- | ----------- |
-| name             | string  | null: false |
-| description      | string  | null: false |
-| category_id      | integer | null: false |
-| status_id        | integer | null: false |
-| shipping_cost_id | integer | null: false |
-| prefecture_id    | integer | null: false |
-| shipping_days_id | integer | null: false |
-| price            | integer | null: false |
-| user_id          | integer | null: false | 
+| Colum            | Type    | Options                        |
+| ---------------- | ------- | -----------                    |
+| name             | string  | null: false                    |
+| description      | text    | null: false                    |
+| category_id      | integer | null: false                    |
+| status_id        | integer | null: false                    |
+| shipping_cost_id | integer | null: false                    |
+| prefecture_id    | integer | null: false                    |
+| shipping_days_id | integer | null: false                    |
+| price            | integer | null: false                    |
+| user_id          | integer | null: false, foreign_key: true | 
 
 ### Association
 
@@ -48,10 +48,22 @@
 | prefecture_id | integer | null: false |
 | city          | string  | null: false |
 | address       | string  | null: false |
-| building_name | string  | null: false |
+| building_name | string  |             |
 | phone_number  | string  | null: false |
 
 ### Association
 
 - belongs_to :user
 
+## buyers テーブル
+
+| Colum         | Type    | Options                        |
+| ------------- | ------- | ------------------------------ |
+| user_id       | integer | null: false, foreign_key: true |
+| product_id    | integer | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- has_many :product
+- has_many : destination
