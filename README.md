@@ -32,29 +32,31 @@
 | status_id        | integer    | null: false                    |
 | shipping_cost_id | integer    | null: false                    |
 | prefecture_id    | integer    | null: false                    |
-| shipping_days_id | integer    | null: false                    |
+| shipping_day_id  | integer    | null: false                    |
 | price            | integer    | null: false                    |
 | user             | references | null: false, foreign_key: true | 
 
 ### Association
 
 - belongs_to :user
+- has_one :buyers
 
 
 ## destinations テーブル
 
-| Colum         | Type    | Options     |
-| ------------- | ------- | ----------- |
-| postcode      | string  | null: false |
-| prefecture_id | integer | null: false |
-| city          | string  | null: false |
-| address       | string  | null: false |
-| building_name | string  |             |
-| phone_number  | string  | null: false |
+| Colum         | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| postcode      | string     | null: false                    |
+| prefecture_id | integer    | null: false                    |
+| city          | string     | null: false                    |
+| address       | string     | null: false                    |
+| building_name | string     |                                |
+| phone_number  | string     | null: false                    |
+| buyer         | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user
+- has_one :buyers
 
 ## buyers テーブル
 
@@ -63,8 +65,9 @@
 | user          | references | null: false, foreign_key: true |
 | product       | references | null: false, foreign_key: true |
 
+
 ### Association
 
 - belongs_to :user
 - belongs_to :product
-- has_one : destination
+- has_one :destination
