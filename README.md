@@ -39,7 +39,7 @@
 ### Association
 
 - belongs_to :user
-- has_one :buyers
+- has_one :buyer
 
 
 ## destinations テーブル
@@ -56,7 +56,7 @@
 
 ### Association
 
-- has_one :buyers
+- belongs_to :buyer
 
 ## buyers テーブル
 
