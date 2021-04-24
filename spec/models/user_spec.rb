@@ -7,17 +7,6 @@ RSpec.describe User, type: :model do
   describe 'ユーザー新規登録' do
     context '新規登録できるとき' do
       it 'nicknameとemailとpasswordとpassword_confirmationとlast_nameとfirst_nameとlast_name_kanaとfirst_name_kanaとbirth_dayが存在すれば登録できる' do
-        @user = User.new(
-          nickname: "test",
-          email: "test@example.com",
-          password: "aaa111",
-          password_confirmation: "aaa111",
-          last_name: "山田",
-          first_name: "太郎",
-          last_name_kana: "ヤマダ",
-          first_name_kana: "タロウ",
-          birth_day: "2000-01-01"
-        )
         expect(@user).to be_valid
       end
     end
@@ -56,9 +45,23 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
       end
       it 'passwordが半角英数字混合でなければ登録できない' do
-        @user.password = 'aaaaaa'
+        @user.password = '111111'
         @user.password_confirmation = 'aaaaaa'
-        @user.password_confirmation = '111111'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password Include both letters and numbers")
+      end
+      it 'passwordが英文字のみでは登録できない' do
+        @user.password = 'aaaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password Include both letters and numbers")
+      end
+      it 'passwordが数字のみでは登録できない' do
+        @user.password = '111111'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password Include both letters and numbers")
+      end
+      it 'passwordが全角では登録できない' do
+        @user.password = '１１１１１１'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password Include both letters and numbers")
       end
