@@ -56,6 +56,31 @@ RSpec.describe Product, type: :model do
         @product.valid?
         expect(@product.errors.full_messages).to include("Price can't be blank")
       end
+      it '商品価格が299円以下では出品できない' do
+        @product.price = '299'
+        @product.valid?
+        expect(@product.errors.full_messages).to include("Price Out of setting range")
+      end
+      it '商品価格が10_000_000円以上では出品できない' do
+        @product.price = '100000000'
+        @product.valid?
+        expect(@product.errors.full_messages).to include("Price Out of setting range")
+      end
+      it '商品価格が半角英数字混合では出品できない' do
+        @product.price = '30aa'
+        @product.valid?
+        expect(@product.errors.full_messages).to include("Price Half-width number.")
+      end
+      it '商品価格が半角英字のみでは出品できない' do
+        @product.price = 'aaaa'
+        @product.valid?
+        expect(@product.errors.full_messages).to include("Price Half-width number.")
+      end
+      it '商品価格が全角文字では出品できない' do
+        @product.price = 'ああああ'
+        @product.valid?
+        expect(@product.errors.full_messages).to include("Price Half-width number.")
+      end
     end
   end
 end
