@@ -57,12 +57,12 @@ RSpec.describe Product, type: :model do
         expect(@product.errors.full_messages).to include("Price can't be blank")
       end
       it '商品価格が299円以下では出品できない' do
-        @product.price = '299'
+        @product.price = 299
         @product.valid?
         expect(@product.errors.full_messages).to include("Price Out of setting range")
       end
       it '商品価格が10_000_000円以上では出品できない' do
-        @product.price = '100000000'
+        @product.price = 100000000
         @product.valid?
         expect(@product.errors.full_messages).to include("Price Out of setting range")
       end
