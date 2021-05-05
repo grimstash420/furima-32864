@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   root to: "products#index" #ルートパスへのアクセスがあったら、products_controllerのindexアクションが呼び出される
   resources :products, only: [:index, :new, :create, :show, :edit, :update] do
   end
+  
+  
 end

@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :set_product, only: [:show, :edit, :update] 
   def index
     @product = Product.all.order(created_at: :desc)
   end
@@ -18,22 +19,26 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
+    
   end
 
   def edit
-    @product = Product.find(params[:id])
+    
   end
 
   def update
-    @product = Product.find(params[:id])
+    
     if @product.update(product_params)
-      redirect_to 
+      redirect_to action: 'show'
     else
       render :edit
     end   
   end
   private
+
+  def set_product
+    @product = Product.find(params[:id])
+  end
   
     def product_params
       params.require(:product).permit(:name, :description, :category_id, :status_id, :shipping_cost_id, :prefecture_id, :shipping_day_id, :price, :image).merge(user_id: current_user.id)
