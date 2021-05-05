@@ -123,12 +123,12 @@
   <%# 商品一覧 %>
   <div class='item-contents'>
     <h2 class='title'>ピックアップカテゴリー</h2>
-    <%= link_to '新規投稿商品', "#", class: "subtitle" %>
+    <%= link_to '新規投稿商品',  '#', class: "subtitle" %>
     <ul class='item-lists'>
       <% if @product.present? %>
         <% @product.each do |product| %>
           <li class='list'>
-            <%= link_to products_path(product.id), method: :get do %>
+            <%= link_to product_path(product.id), method: :get do %>
               <div class='item-img-content'>
                 <%= image_tag product.image, class: "item-img" %>
 
@@ -144,7 +144,7 @@
                   <%= product.name %>
                 </h3>
                 <div class='item-price'>
-                  <span><%= product.price %>円<br><%= product.shipping_cost_id %></span>
+                  <span><%= product.price %>円<br><%= product.shipping_cost.name %></span>
                   <div class='star-btn'>
                     <%= image_tag "star.png", class:"star-icon" %>
                     <span class='star-count'>0</span>
