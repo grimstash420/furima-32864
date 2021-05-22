@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :move_to_signed_in, expect: [:index]
+  before_action :set_order, only: [:index, :create]
   def index
-    @product = Product.find(params[:product_id])
     @destination = OrderDestination.new
     if current_user == @product.user
       redirect_to root_path
@@ -9,7 +9,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @product = Product.find(params[:product_id])
     @destination = OrderDestination.new(destination_params)
     
     if @destination.valid?
@@ -38,5 +37,8 @@ class OrdersController < ApplicationController
     unless user_signed_in?
       redirect_to '/users/sign_in'
     end
+  end
+  def set_order
+    @product = Product.find(params[:product_id])
   end
 end

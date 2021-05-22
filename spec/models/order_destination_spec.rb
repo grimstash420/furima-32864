@@ -9,6 +9,10 @@ RSpec.describe OrderDestination, type: :model do
       it '全ての値が正しく入力されていれば購入できること' do
         expect(@order_destination).to be_valid
       end
+      it '建物名が空でも購入できること' do
+        @order_destination.building_name = ''
+        expect(@order_destination).to be_valid
+      end
     end
     context '商品購入がうまくいかない時' do
       it 'postcodeが空だと購入できない' do
@@ -40,6 +44,16 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.phone_number = "0801234567"
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Phone number Input only number") 
+      end
+      it 'user_idが空だと登録できない' do
+        @order_destination.user_id = nil
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("User can't be blank") 
+      end
+      it 'product_idが空だと登録できない' do
+        @order_destination.product_id = nil
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Product can't be blank") 
       end
     end
   end  
