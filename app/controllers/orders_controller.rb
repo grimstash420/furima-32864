@@ -1,7 +1,11 @@
 class OrdersController < ApplicationController
+  before_action :move_to_signed_in, expect: [:index]
   def index
     @product = Product.find(params[:product_id])
     @destination = OrderDestination.new
+    if current_user == @product.user
+      redirect_to root_path
+    end
   end
 
   def create
@@ -29,5 +33,10 @@ class OrdersController < ApplicationController
         card: destination_params[:token],    # カードトークン
         currency: 'jpy'                 # 通貨の種類（日本円）
       )
+  end
+  def move_to_signed_in
+    unless user_signed_in?
+      redirect_to '/users/sign_in'
+    end
   end
 end
