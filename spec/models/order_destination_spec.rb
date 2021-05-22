@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe OrderDestination, type: :model do
   before do
-    @order_destination = FactoryBot.build(:order_destination)
+    @user = FactoryBot.create(:user)
+    @product = FactoryBot.create(:product)
+    @order_destination = FactoryBot.build(:order_destination, user_id: @user.id, product_id: @product.id )
+    sleep 0.1 
   end
   describe '購入内容確認' do
     context '商品購入がうまくいく時' do
@@ -45,6 +48,16 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Phone number Input only number") 
       end
+      it 'phone_numberが12桁以上では登録できないこと' do
+        @order_destination.phone_number = "080123456789"
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Phone number Input only number") 
+      end
+      it 'phone_numberが英数混合では登録できないこと' do
+        @order_destination.phone_number = "abc12345678"
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Phone number Input only number") 
+      end
       it 'user_idが空だと登録できない' do
         @order_destination.user_id = nil
         @order_destination.valid?
@@ -55,6 +68,11 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Product can't be blank") 
       end
+      it 'tokenが空では登録できないこと' do
+        @order_destination.token = nil
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Token can't be blank")
+      end 
     end
   end  
 end
