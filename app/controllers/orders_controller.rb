@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   before_action :move_to_signed_in, expect: [:index, :create]
   before_action :set_order, only: [:index, :create]
   before_action :correct_user, only: [:index, :create]
+  before_action :authenticate_user!
   def index
     @destination = OrderDestination.new
     
@@ -37,6 +38,7 @@ class OrdersController < ApplicationController
       redirect_to '/users/sign_in'
     end
   end
+
   def set_order
     @product = Product.find(params[:product_id])
   end
