@@ -1,5 +1,4 @@
 class OrdersController < ApplicationController
-  before_action :move_to_signed_in, expect: [:index, :create]
   before_action :set_order, only: [:index, :create]
   before_action :correct_user, only: [:index, :create]
   before_action :authenticate_user!
@@ -32,11 +31,6 @@ class OrdersController < ApplicationController
         card: destination_params[:token],    # カードトークン
         currency: 'jpy'                 # 通貨の種類（日本円）
       )
-  end
-  def move_to_signed_in
-    unless user_signed_in?
-      redirect_to '/users/sign_in'
-    end
   end
 
   def set_order
