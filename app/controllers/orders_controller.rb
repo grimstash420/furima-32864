@@ -37,7 +37,7 @@ class OrdersController < ApplicationController
     @product = Product.find(params[:product_id])
   end
   def correct_user
-    unless @product.user && @product.order.nil?
+    unless current_user.id && @product.order.nil?
        redirect_to root_path
     end
   end

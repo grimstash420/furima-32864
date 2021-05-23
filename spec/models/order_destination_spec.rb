@@ -48,6 +48,16 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Phone number Input only number") 
       end
+      it 'phone_numberが数字のみでないと登録できないこと' do
+        @order_destination.phone_number = "080-1234-56789"
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Phone number Input only number") 
+      end
+      it 'phone_numberが全角数字だと登録できないこと' do
+        @order_destination.phone_number = "０８０１２３４５６７８"
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Phone number Input only number") 
+      end
       it 'phone_numberが英数混合では登録できないこと' do
         @order_destination.phone_number = "abc12345678"
         @order_destination.valid?
