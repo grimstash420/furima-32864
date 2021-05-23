@@ -4,7 +4,11 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   def index
     @destination = OrderDestination.new
-    
+    if current_user && @product.order.nil?
+
+    else
+       redirect_to root_path
+    end
   end
 
   def create
