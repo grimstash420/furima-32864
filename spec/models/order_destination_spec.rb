@@ -43,11 +43,6 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Address can't be blank")
       end
-      it 'phone_numberが10桁では購入できない' do
-        @order_destination.phone_number = "0801234567"
-        @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include("Phone number Input only number") 
-      end
       it 'phone_numberが12桁以上では登録できないこと' do
         @order_destination.phone_number = "080123456789"
         @order_destination.valid?

@@ -1,11 +1,10 @@
 class OrdersController < ApplicationController
-  before_action :move_to_signed_in, expect: [:index]
+  before_action :move_to_signed_in, expect: [:index, :create]
   before_action :set_order, only: [:index, :create]
+  before_action :correct_user, only: [:index, :create]
   def index
     @destination = OrderDestination.new
-    if current_user == @product.user
-      redirect_to root_path
-    end
+    
   end
 
   def create
@@ -40,5 +39,10 @@ class OrdersController < ApplicationController
   end
   def set_order
     @product = Product.find(params[:product_id])
+  end
+  def correct_user
+    if current_user == @product.user
+      redirect_to root_path
+    end
   end
 end

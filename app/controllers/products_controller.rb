@@ -24,7 +24,9 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    
+    if @product.order.present?
+      redirect_to root_path
+    end
   end
 
   def update
